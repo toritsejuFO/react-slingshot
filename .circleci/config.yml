@@ -14,7 +14,8 @@ jobs:
       - save_cache:
           key: v1-npm-deps-{{ checksum "package-lock.json" }}
           paths:
-            - ~/.node_modules
+            - ./node_modules
+      - run: npm build
 
   test:
     <<: *base_img
@@ -28,8 +29,6 @@ jobs:
     <<: *base_img
     steps:
       - checkout
-      - restore_cache:
-          key: v1-npm-deps-{{ checksum "package-lock.json" }}
       - run: npm audit
 
 
